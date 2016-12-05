@@ -1,0 +1,53 @@
+{
+  "name": "extend-coffee-script",
+  "version": "0.0.1",
+  "description": "Compile coffree-script into Adobe ExtendScript with shim",
+  "bin": {
+    "escoffee": "./bin/bin.js"
+  },
+  "main": "./lib/index.js",
+  "author": "Rong Shen",
+  "license": "MIT",
+  "scripts": {
+    "build": "coffee -bc --no-header --output lib/ src/",
+    "watch": "coffee -wbc --no-header --output lib/ src/",
+    "start-exam-server": "better-npm-run start-exam-server",
+    "start-exam-es": "better-npm-run start-exam-es",
+    "start": "concurrently 'npm run start-exam-server' 'npm run start-exam-es'"
+  },
+  "betterScripts": {
+    "start-exam-server": {
+      "command": "coffee ./example/server/index.coffee",
+      "env": {
+        "LOG_PORT": 5004,
+        "API_PORT": 5005
+      }
+    },
+    "start-exam-es": {
+      "command": "./bin/bin.js -s ./example/es/index.coffee -t illustrator -p ./example/es/prepend.coffee",
+      "env": {
+        "LOG_PORT": 5004,
+        "API_PORT": 5005
+      }
+    }
+  },
+  "devDependencies": {
+    "better-npm-run": "^0.0.13",
+    "coffee-script": "^1.11.1",
+    "concurrently": "^3.1.0",
+    "express": "^4.14.0",
+    "oneline-stringify": "^0.0.3"
+  },
+  "dependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "commander": "^2.9.0",
+    "concat-stream": "^1.5.2",
+    "date-now": "^1.0.1",
+    "prependify": "^1.2.1",
+    "ps-scripting-es5shim": "^0.0.1",
+    "require-injector": "^1.0.1",
+    "through2": "^2.0.1"
+  },
+  "files": ["./lib"]
+}
